@@ -32,6 +32,8 @@ const SelectableMedia = (props) => {
     maxWidth,
     mr: 1,
     mb: 1,
+    marginLeft: 'auto',
+    marginRight: 'auto',
     ...selected ? selectedStyles : {},
     ...sx
   };

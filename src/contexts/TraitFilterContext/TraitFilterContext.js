@@ -98,7 +98,10 @@ export const TraitFilterContextProvider = ({ children, tokens, onFilterChange })
   }, [tokens])
 
   useEffect(() => {
-    onFilterChange(selectedFilters)
+    if (onFilterChange) {
+      onFilterChange(selectedFilters)
+    }
+    
     setFilteredTokens(filterTokens(selectedFilters))
   }, [selectedFilters])
 
