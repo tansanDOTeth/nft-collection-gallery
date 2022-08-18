@@ -31,3 +31,47 @@ Trait C = [Variation D, Variation E]
 
 Trait A && Trait B && Trait C = (Variation A || Variation B) && (Variation C) && (Variation D || Variation E)
 ```
+
+# Local Development
+
+## Testing Dependency Locally
+
+# Linking
+
+The following process will create a symlink in `example/node_modules/nft-collection-gallery` into the project directory.
+
+```bash
+# ./
+yarn link
+cd example
+yarn link nft-collection-gallery
+```
+
+You will also need to link your example app's react to the library's react. If you skip this step, then the app will throw arrows about Invalid Hooks.
+
+```bash
+# ./
+cd example/node_modules/react
+yarn link
+cd ../../../
+yarn link react
+```
+
+You will also need to link your example app's MUI to the library's MUI. If you skip this step, then the app will use different themes because it has 2 separate singletons.
+
+```bash
+# ./
+cd example/node_modules/@mui
+yarn link
+cd ../../../
+yarn link @mui
+```
+
+### Unlinking
+
+If you want to pull the packages for `example/` as normal after linking:
+
+```bash
+yarn unlink nft-collection-gallery
+yarn install --check-files
+```
