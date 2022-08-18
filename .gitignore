@@ -3,6 +3,7 @@ node_modules
 
 # Build
 dist
+build
 
 # Misc
 .DS_Store
