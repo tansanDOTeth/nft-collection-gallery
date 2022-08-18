@@ -52,6 +52,7 @@
     "autoprefixer": "^10.4.8",
     "js-combinatorics": "^2.1.1",
     "postcss": "^8.4.16",
+    "react": "^18.2.0",
     "react-virtualized-auto-sizer": "^1.0.6",
     "react-window": "^1.8.7",
     "rollup": "^2.78.0",

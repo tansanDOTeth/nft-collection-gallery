@@ -9,7 +9,7 @@ const config = {
   input: 'src/components/CollectionGallery/index.js',
   external: [
     'react',
-    '@mui',
+    '@mui/material'
   ],
   output: {
     format: 'umd',
@@ -20,7 +20,7 @@ const config = {
   },
   plugins: [
     postcss({
-      extract: true,
+      extract: false,
       plugins: [
         autoprefixer,
       ],
@@ -32,7 +32,8 @@ const config = {
       ]
     }),
     babel({
-      babelHelpers: 'bundled'
+      babelHelpers: 'bundled',
+      exclude: /node_modules/
     }),
     commonjs(),
     uglify()
