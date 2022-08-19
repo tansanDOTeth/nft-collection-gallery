@@ -1,6 +1,0 @@
-src/
-test/
-.npmignore
-.gitignore
-rollup.config.js
-example/
