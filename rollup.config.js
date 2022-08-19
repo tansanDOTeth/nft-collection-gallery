@@ -9,7 +9,8 @@ const config = {
   input: 'src/components/CollectionGallery/index.js',
   external: [
     'react',
-    '@mui/material'
+    '@mui/material',
+    '@mui/icons-material'
   ],
   output: {
     format: 'umd',
