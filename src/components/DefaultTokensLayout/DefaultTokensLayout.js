@@ -32,7 +32,11 @@ const TokenImage = ({ width, token, onClick, showTokenName = false }) => {
         crossOrigin="anonymous"
         {...(onClick
           ? {
-            onClick, style: { ...styles.image, cursor: 'pointer' }
+            onClick,
+            style: {
+              ...styles.image,
+              cursor: 'pointer'
+            }
           }
           : {
             style: styles.image
@@ -40,7 +44,6 @@ const TokenImage = ({ width, token, onClick, showTokenName = false }) => {
     </div>
   )
 }
-
 
 const BasicModal = ({ imageWidth, token, onClose }) => {
   const styles = {
