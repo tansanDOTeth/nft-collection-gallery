@@ -8,9 +8,7 @@ import { uglify } from 'rollup-plugin-uglify';
 const config = {
   input: 'src/components/CollectionGallery/index.js',
   external: [
-    'react',
-    '@mui/material',
-    '@mui/icons-material'
+    'react'
   ],
   output: {
     format: 'umd',
