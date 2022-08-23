@@ -7,10 +7,8 @@
     "build": "rollup -c -o dist/CollectionGallery.min.js",
     "link-nft-collection-gallery": "yarn link; cd example; yarn link nft-collection-gallery; cd ..",
     "link-react": "cd example/node_modules/react; yarn link; cd ../../../; yarn link react",
-    "link-mui-icons-material": "cd example/node_modules/@mui/icons-material; yarn link; cd ../../../../; yarn link @mui/icons-material",
-    "link-mui-material": "cd example/node_modules/@mui/material; yarn link; cd ../../../../; yarn link @mui/material",
-    "link-all": "yarn link-nft-collection-gallery; yarn link-react; yarn link-mui-icons-material; yarn link-mui-material",
-    "unlink-all": "yarn unlink nft-collection-gallery; yarn unlink react; yarn unlink link-mui-icons-material; yarn unlink link-mui-material",
+    "link-all": "yarn link-nft-collection-gallery; yarn link-react",
+    "unlink-all": "yarn unlink nft-collection-gallery; yarn unlink react",
     "test": "echo \"Error: no test specified\" && exit 1",
     "release": "np --no-tests"
   },
@@ -39,10 +37,6 @@
     "url": "git+https://github.com/tansanDOTeth/nft-collection-gallery.git"
   },
   "peerDependencies": {
-    "@emotion/react": "^11.10.0",
-    "@emotion/styled": "^11.10.0",
-    "@mui/icons-material": "^5.8.4",
-    "@mui/material": "^5.9.3",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -50,10 +44,6 @@
   "devDependencies": {
     "@babel/core": "^7.18.10",
     "@babel/preset-react": "^7.18.6",
-    "@emotion/react": "^11.10.0",
-    "@emotion/styled": "^11.10.0",
-    "@mui/icons-material": "^5.8.4",
-    "@mui/material": "^5.9.3",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-node-resolve": "^13.3.0",
