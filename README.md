@@ -1,10 +1,6 @@
 # NFT Collection Gallery
 
-This is a codebase spinned out of GENGEN for viewing all your tokens in a gallery with Trait Filters.
-
-At the moment, this code is heavily coupled with MUI. If there is a community desire to decouple it, please let me know in the issues.
-
-![GENGEN NFT Gallery](https://raw.githubusercontent.com/tansanDOTeth/gengen-nft-gallery/main/.github/images/gengen-nft-gallery-preview.png)
+This is a codebase spun out from GENGEN for viewing all your tokens in a gallery with Trait Filters. The default design is basic HTML/CSS and allows easy customization.
 
 # Install
 
@@ -83,6 +79,39 @@ Trait C = [Variation D, Variation E]
 
 Trait A && Trait B && Trait C = (Variation A || Variation B) && (Variation C) && (Variation D || Variation E)
 ```
+
+# Customization
+
+There are 4 props available in `CollectionGallery` for you to customize your gallery.
+
+- GalleryLayout
+- FiltersLayout
+- TokensLayout
+- CurrentFiltersLayout
+
+Here is an oversimplified usage example. If you pass in a basic "hello world" into `GalleryLayout` then you will complete overwrite everything. Obviously, you wouldn't do that, but it should help you understand how the basic idea of customization. I would suggest looking at the respective default components as examples.
+
+```javascript
+
+const HelloWorld = () => "HelloWorld"
+
+<CollectionGallery GalleryLayout={HelloWorld} />
+
+```
+
+You can refer to the default components of each one to get an idea for how to customize. It should be very straight forward for any React developer.
+
+- DefaultGalleryLayout
+- DefaultFiltersLayout
+- DefaultTokensLayout
+- DefaultCurrentFiltersLayout
+
+# Gallery Themes
+
+WIP - I will be extracting out the original MUI theme into a separate repo and then updating this readme with instructions.
+
+Here's how the gallery would look like with MUI.
+![GENGEN NFT Gallery](https://raw.githubusercontent.com/tansanDOTeth/gengen-nft-gallery/main/.github/images/gengen-nft-gallery-preview.png)
 
 # Contribution
 
