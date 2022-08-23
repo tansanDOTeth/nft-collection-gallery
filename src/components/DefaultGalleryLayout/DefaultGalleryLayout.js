@@ -28,6 +28,10 @@ const styles = {
     flexGrow: 1,
     display: 'flex',
     flexDirection: 'column',
+  },
+  supplyCount: {
+    fontSize: '2.5rem',
+    textAlign: 'right'
   }
 }
 
@@ -38,6 +42,11 @@ const DefaultGalleryLayout = ({ TraitFilterContextConsumer, FiltersLayout, Token
         <FiltersLayout />
       </div>
       <div style={styles.rightColumn}>
+        <div style={styles.supplyCount}>
+          <TraitFilterContextConsumer>
+            {({ tokens, filteredTokens }) => `${filteredTokens.length}/${tokens.length}`}
+          </TraitFilterContextConsumer>
+        </div>
         <CurrentFiltersLayout />
         <TokensLayout />
       </div>

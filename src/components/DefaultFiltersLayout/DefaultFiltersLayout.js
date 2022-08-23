@@ -5,8 +5,8 @@ const TraitFilter = ({ traitName, variationNames, getCount, onChange, isChecked 
 
   const styles = {
     traitHeader: {
-      paddingTop: '1rem',
-      paddingBottom: '1rem',
+      paddingTop: '1.25rem',
+      paddingBottom: '0.75rem',
       textAlign: 'left'
     },
     variationNames: {
