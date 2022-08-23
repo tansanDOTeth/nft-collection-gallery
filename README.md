@@ -2,6 +2,10 @@
 
 This is a codebase spun out from GENGEN for viewing all your tokens in a gallery with Trait Filters. The default design is basic HTML/CSS and allows easy customization.
 
+![NFT Collection Gallery](https://raw.githubusercontent.com/tansanDOTeth/nft-collection-gallery/main/.github/images/nft-gallery-preview.png)
+
+![NFT Collection Gallery](https://raw.githubusercontent.com/tansanDOTeth/nft-collection-gallery/main/.github/images/nft-gallery-preview-modal.png)
+
 # Install
 
 npm:
@@ -111,7 +115,7 @@ You can refer to the default components of each one to get an idea for how to cu
 WIP - I will be extracting out the original MUI theme into a separate repo and then updating this readme with instructions.
 
 Here's how the gallery would look like with MUI.
-![GENGEN NFT Gallery](https://raw.githubusercontent.com/tansanDOTeth/gengen-nft-gallery/main/.github/images/gengen-nft-gallery-preview.png)
+![NFT Collection Gallery with a MUI theme](https://raw.githubusercontent.com/tansanDOTeth/nft-collection-gallery/main/.github/images/nft-gallery-preview.png)
 
 # Contribution
 
@@ -131,6 +135,6 @@ yarn link-all
 If you want to pull the packages for `example/` as normal after linking:
 
 ```bash
-yarn unlink nft-collection-gallery
+yarn unlink-all
 yarn install --check-files
 ```
