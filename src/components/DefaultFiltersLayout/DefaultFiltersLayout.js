@@ -32,6 +32,7 @@ const TraitFilter = ({ traitName, variationNames, getCount, onChange, isChecked 
             const keyName = getKeyName(traitName, variationName);
             return (
               <label
+                key={keyName}
                 style={styles.variationName}
                 name={keyName}>
                 <div>
