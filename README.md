@@ -90,33 +90,11 @@ There is an example create-react-app that you can use in `example/` to help test
 
 ## Linking
 
-The following process will create a symlink in `example/node_modules/nft-collection-gallery` into the project directory.
+In order to develop locally against your local build using the `example/` directory, you will need to symlink certain `node_module/` packages.
 
 ```bash
 # ./
-yarn link
-cd example
-yarn link nft-collection-gallery
-```
-
-You will also need to link your example app's react to the library's react. If you skip this step, then the app will throw arrows about Invalid Hooks.
-
-```bash
-# ./
-cd example/node_modules/react
-yarn link
-cd ../../../
-yarn link react
-```
-
-You will also need to link your example app's MUI to the library's MUI. If you skip this step, then the app will use different themes because it has 2 separate singletons.
-
-```bash
-# ./
-cd example/node_modules/@mui
-yarn link
-cd ../../../
-yarn link @mui
+yarn link-all
 ```
 
 ## Unlinking

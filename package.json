@@ -5,6 +5,12 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "build": "rollup -c -o dist/CollectionGallery.min.js",
+    "link-nft-collection-gallery": "yarn link; cd example; yarn link nft-collection-gallery; cd ..",
+    "link-react": "cd example/node_modules/react; yarn link; cd ../../../; yarn link react",
+    "link-mui-icons-material": "cd example/node_modules/@mui/icons-material; yarn link; cd ../../../../; yarn link @mui/icons-material",
+    "link-mui-material": "cd example/node_modules/@mui/material; yarn link; cd ../../../../; yarn link @mui/material",
+    "link-all": "yarn link-nft-collection-gallery; yarn link-react; yarn link-mui-icons-material; yarn link-mui-material",
+    "unlink-all": "yarn unlink nft-collection-gallery; yarn unlink react; yarn unlink link-mui-icons-material; yarn unlink link-mui-material",
     "test": "echo \"Error: no test specified\" && exit 1",
     "release": "np --no-tests"
   },
