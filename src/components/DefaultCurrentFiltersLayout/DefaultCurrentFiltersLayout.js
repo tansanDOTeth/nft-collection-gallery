@@ -21,7 +21,7 @@ const SelectedFilter = ({ name, onClick }) =>
   <li
     style={styles.filter}
     onClick={() => onClick(name)}>
-    {name}
+    {name.split(':').join(' - ')}
   </li>
 
 const DefaultCurrentFiltersLayout = ({ TraitFilterContextConsumer }) =>
