@@ -1,20 +1,38 @@
-import { Content } from 'components/Layout';
-import { Paper } from '@mui/material';
 import React from 'react';
-import { RightColumn } from 'components/Layout';
+
+const styles = {
+  wrapper: {
+    position: 'fixed',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    zIndex: 999,
+    padding: '1rem',
+    backgroundColor: '#1E1E1E',
+  },
+  content: {
+    display: 'flex',
+    flexDirecetion: 'row',
+    height: '100%'
+  },
+  rightColumn: {
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
+  }
+}
 
 const DefaultGalleryLayout = ({ TraitFilterContextConsumer, FiltersLayout, TokensLayout, CurrentFiltersLayout }) =>
-  <Paper
-    elevation={3}
-    sx={{ position: 'fixed', top: 0, bottom: 0, left: 0, right: 0, zIndex: 999, p: 1 }}
-  >
-    <Content sx={{ flexDirection: 'row' }}>
+  <div style={styles.wrapper}>
+    <div style={styles.content}>
       <FiltersLayout />
-      <RightColumn>
+      <div style={styles.rightColumn}>
         <CurrentFiltersLayout />
         <TokensLayout />
-      </RightColumn>
-    </Content>
-  </Paper>;
+      </div>
+    </div>
+  </div>
+
 
 export default DefaultGalleryLayout;
