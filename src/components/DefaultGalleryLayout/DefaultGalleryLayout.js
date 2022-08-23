@@ -16,6 +16,14 @@ const styles = {
     flexDirecetion: 'row',
     height: '100%'
   },
+  leftColumn: {
+    minWidth: 300,
+    width: 300,
+    paddingRight: '1rem',
+    display: 'flex',
+    flexDirection: 'column',
+    overflowY: 'auto',
+  },
   rightColumn: {
     flexGrow: 1,
     display: 'flex',
@@ -26,7 +34,9 @@ const styles = {
 const DefaultGalleryLayout = ({ TraitFilterContextConsumer, FiltersLayout, TokensLayout, CurrentFiltersLayout }) =>
   <div style={styles.wrapper}>
     <div style={styles.content}>
-      <FiltersLayout />
+      <div style={styles.leftColumn}>
+        <FiltersLayout />
+      </div>
       <div style={styles.rightColumn}>
         <CurrentFiltersLayout />
         <TokensLayout />
