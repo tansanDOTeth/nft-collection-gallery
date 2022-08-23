@@ -101,7 +101,7 @@ export const TraitFilterContextProvider = ({ children, tokens, onFilterChange })
     if (onFilterChange) {
       onFilterChange(selectedFilters)
     }
-    
+
     setFilteredTokens(filterTokens(selectedFilters))
   }, [selectedFilters])
 
@@ -111,6 +111,7 @@ export const TraitFilterContextProvider = ({ children, tokens, onFilterChange })
     selectedFilters,
     setSelectedFilters,
     removeFilter,
+    tokens,
     filteredTokens
   };
 
