@@ -115,7 +115,7 @@ You can refer to the default components of each one to get an idea for how to cu
 WIP - I will be extracting out the original MUI theme into a separate repo and then updating this readme with instructions.
 
 Here's how the gallery would look like with MUI.
-![NFT Collection Gallery with a MUI theme](https://raw.githubusercontent.com/tansanDOTeth/nft-collection-gallery/main/.github/images/nft-gallery-preview.png)
+![NFT Collection Gallery with a MUI theme](https://raw.githubusercontent.com/tansanDOTeth/nft-collection-gallery/main/.github/images/nft-gallery-preview-mui.png)
 
 # Contribution
 
