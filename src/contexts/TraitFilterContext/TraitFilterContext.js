@@ -52,7 +52,6 @@ const getVariationNamesByTraitName = (tokens) => {
     traitValueByTraitName[traitName] = [...variations]
   })
 
-  console.log(traitValueByTraitName)
   return traitValueByTraitName;
 }
 
