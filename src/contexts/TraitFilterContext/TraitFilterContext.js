@@ -39,15 +39,20 @@ const getTokensByVariationName = (tokens) => {
 
 const getVariationNamesByTraitName = (tokens) => {
   const traitValueByTraitName = {}
-  const allUniqueAttributes = uniqueItems(tokens.flatMap(token => token.attributes), 'value')
-  allUniqueAttributes.forEach(({ trait_type, value }) => {
-    if (!traitValueByTraitName[trait_type]) {
-      traitValueByTraitName[trait_type] = [value]
-    } else {
-      traitValueByTraitName[trait_type].push(value)
-    }
+  tokens.forEach(token => {
+    token.attributes.forEach(({ trait_type, value }) => {
+      if (!traitValueByTraitName[trait_type]) {
+        traitValueByTraitName[trait_type] = new Set()
+      }
+      traitValueByTraitName[trait_type].add(value)
+    })
   })
 
+  Object.entries(traitValueByTraitName).forEach(([traitName, variations]) => {
+    traitValueByTraitName[traitName] = [...variations]
+  })
+
+  console.log(traitValueByTraitName)
   return traitValueByTraitName;
 }
 
