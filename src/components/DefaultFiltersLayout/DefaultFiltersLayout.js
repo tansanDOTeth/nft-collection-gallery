@@ -67,10 +67,10 @@ const TraitFilters = ({ variationNamesByTraitName, ...otherProps }) =>
 
 const DefaultFiltersLayout = ({ TraitFilterContextConsumer }) =>
   <TraitFilterContextConsumer>
-    {({ variationNamesByTraitName, tokensByVariationName, selectedFilters, setSelectedFilters }) =>
+    {({ variationNamesByTraitName, tokenCountByVariationName, selectedFilters, setSelectedFilters }) =>
       <TraitFilters
         variationNamesByTraitName={variationNamesByTraitName}
-        getCount={(key) => tokensByVariationName[key].length}
+        getCount={(key) => tokenCountByVariationName[key]}
         onChange={({ target: { name, checked } }) => {
           setSelectedFilters({
             ...selectedFilters,
