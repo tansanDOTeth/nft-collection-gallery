@@ -12,14 +12,15 @@ const getInitalFilters = (filterNames) =>
     map[name] = false
     return map;
   }, {})
-const groupByTraitName = (filterNames) => filterNames.reduce((acc, keyName) => {
-  const split = keyName.split(':');
-  const traitName = split[0];
-  const group = (acc[traitName] || []);
-  group.push(keyName);
-  acc[traitName] = group;
-  return acc
-}, {});
+const groupByTraitName = (filterNames) =>
+  filterNames.reduce((map, keyName) => {
+    const split = keyName.split(':');
+    const traitName = split[0];
+    const group = (map[traitName] || []);
+    group.push(keyName);
+    map[traitName] = group;
+    return map
+  }, {});
 
 const getTokensByVariationName = (tokens) => {
   const tokensByVariationName = {}
