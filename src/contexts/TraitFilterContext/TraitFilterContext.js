@@ -22,20 +22,18 @@ const groupByTraitName = (filterNames) =>
     return map
   }, {});
 
-const getTokensByVariationName = (tokens) => {
-  const tokensByVariationName = {}
-  tokens.forEach(token => {
-    token.attributes.forEach(({ trait_type, value }) => {
+const getTokenCountByVariationName = (tokens) => {
+  const map = {}
+  for (let token of tokens) {
+    for (let { trait_type, value } of token.attributes) {
       const keyName = `${trait_type}:${value}`
-      if (!tokensByVariationName[keyName]) {
-        tokensByVariationName[keyName] = [token]
-      } else {
-        tokensByVariationName[keyName].push(token)
+      if (!map[keyName]) {
+        map[keyName] = 0;
       }
-    })
-  })
-
-  return tokensByVariationName;
+      map[keyName] += 1;
+    }
+  }
+  return map;
 }
 
 const getVariationNamesByTraitName = (tokens) => {
@@ -59,7 +57,7 @@ const getVariationNamesByTraitName = (tokens) => {
 export const TraitFilterContextProvider = ({ children, tokens, onFilterChange }) => {
   const [filteredTokens, setFilteredTokens] = useState([])
   const [variationNamesByTraitName, setVariationNamesByTraitName] = useState({});
-  const [tokensByVariationName, setTokensByVariationName] = useState({});
+  const [tokenCountByVariationName, setTokenCountByVariationName] = useState({});
 
   /*
     selectedFilters Data Structure:
@@ -98,8 +96,8 @@ export const TraitFilterContextProvider = ({ children, tokens, onFilterChange })
 
   useEffect(() => {
     setVariationNamesByTraitName(getVariationNamesByTraitName(tokens))
-    setTokensByVariationName(getTokensByVariationName(tokens))
-    setSelectedFilters(getInitalFilters(Object.keys(tokensByVariationName)))
+    setTokenCountByVariationName(getTokenCountByVariationName(tokens))
+    setSelectedFilters(getInitalFilters(Object.keys(tokenCountByVariationName)))
   }, [tokens])
 
   useEffect(() => {
@@ -112,7 +110,7 @@ export const TraitFilterContextProvider = ({ children, tokens, onFilterChange })
 
   let context = {
     variationNamesByTraitName,
-    tokensByVariationName,
+    tokenCountByVariationName,
     selectedFilters,
     setSelectedFilters,
     removeFilter,
