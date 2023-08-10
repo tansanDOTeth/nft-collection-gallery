@@ -6,10 +6,6 @@ const TraitFilterContext = createContext({});
 
 export default TraitFilterContext;
 
-const uniqueItems = (items, uniqueKey) => {
-  let getItemKey = (item) => item[uniqueKey];
-  return [...new Map(items.map((item) => [getItemKey(item), item])).values()];
-}
 const isSuperSet = (source, target) => target.every(v => source.includes(v));
 const getInitalFilters = (filterNames) =>
   filterNames.reduce((map, name) => {
