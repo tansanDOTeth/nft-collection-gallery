@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const getInitalFilters = (filterNames) =>
   filterNames.reduce((map, name) => {
@@ -9,14 +9,14 @@ const getInitalFilters = (filterNames) =>
 export const useFilters = (keyNames = []) => {
   const [filters, setFilters] = useState({});
 
-  const setFilter = (keyName, isChecked) => {
+  const setFilter = useCallback((keyName, isChecked) => {
     setFilters((filters) =>
       ({ ...filters, [keyName]: isChecked })
     )
-  }
+  }, [setFilters])
 
-  const removeFilter = (keyName) => setFilter(keyName, false)
-  const addFIlter = (keyName) => setFilter(keyName, true)
+  const removeFilter = useCallback((keyName) => setFilter(keyName, false), [setFilter])
+  const addFIlter = useCallback((keyName) => setFilter(keyName, true), [setFilter])
 
   useEffect(() => {
     setFilters(getInitalFilters(keyNames))
