@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useMemo, useState } from 'react';
+import React, { createContext, useMemo } from 'react';
 
 import { CartesianProduct } from 'js-combinatorics';
 import { useFilters } from 'hooks/useFilters';
@@ -50,8 +50,27 @@ const getVariationNamesByTraitName = (tokens) => {
   return traitValueByTraitName;
 }
 
+const getKeyName = ({ trait_type, value }) => `${trait_type}:${value}`
+
+const filterTokens = (filters, tokens) => {
+  if (!filters) {
+    return tokens;
+  }
+  const checkedVariationNames = Object.entries(filters).filter(([name, isChecked]) => isChecked).flatMap(([name]) => name)
+  if (checkedVariationNames.length === 0) {
+    return tokens;
+  }
+
+  const groupedVariationNames = Object.values(groupByTraitName(checkedVariationNames));
+  let attributeCombinations = [...new CartesianProduct(...groupedVariationNames)];
+
+  return tokens.filter(token => {
+    const keyNames = token.attributes.map(attribute => getKeyName(attribute));
+    return attributeCombinations.find(attributeCombination => isSuperSet(keyNames, attributeCombination))
+  })
+}
+
 export const TraitFilterContextProvider = ({ children, tokens, onFilterChange }) => {
-  const [filteredTokens, setFilteredTokens] = useState([])
   const [variationNamesByTraitName, tokenCountByVariationName] = useMemo(() => {
     return [
       getVariationNamesByTraitName(tokens),
@@ -61,34 +80,13 @@ export const TraitFilterContextProvider = ({ children, tokens, onFilterChange })
 
   const filterKeyNames = useMemo(() => Object.keys(tokenCountByVariationName), [tokenCountByVariationName])
   const [filters, addFilter, removeFilter] = useFilters(filterKeyNames);
-
-  const getKeyName = ({ trait_type, value }) => `${trait_type}:${value}`
-
-  const filterTokens = (filters) => {
-    if (!filters) {
-      return tokens;
-    }
-    const checkedVariationNames = Object.entries(filters).filter(([name, isChecked]) => isChecked).flatMap(([name]) => name)
-    if (checkedVariationNames.length === 0) {
-      return tokens;
-    }
-
-    const groupedVariationNames = Object.values(groupByTraitName(checkedVariationNames));
-    let attributeCombinations = [...new CartesianProduct(...groupedVariationNames)];
-
-    return tokens.filter(token => {
-      const keyNames = token.attributes.map(attribute => getKeyName(attribute));
-      return attributeCombinations.find(attributeCombination => isSuperSet(keyNames, attributeCombination))
-    })
-  }
-
-  useEffect(() => {
+  const filteredTokens = useMemo(() => {
     if (onFilterChange) {
       onFilterChange(filters)
     }
 
-    setFilteredTokens(filterTokens(filters))
-  }, [filters])
+    return filterTokens(filters, tokens)
+  }, [filters, tokens])
 
   let context = {
     variationNamesByTraitName,
