@@ -1,17 +1,13 @@
 import React, { createContext, useEffect, useState } from 'react';
 
 import { CartesianProduct } from 'js-combinatorics';
+import { useFilters } from 'hooks/useFilters';
 
 const TraitFilterContext = createContext({});
 
 export default TraitFilterContext;
 
 const isSuperSet = (source, target) => target.every(v => source.includes(v));
-const getInitalFilters = (filterNames) =>
-  filterNames.reduce((map, name) => {
-    map[name] = false
-    return map;
-  }, {})
 const groupByTraitName = (filterNames) =>
   filterNames.reduce((map, keyName) => {
     const split = keyName.split(':');
@@ -59,28 +55,16 @@ export const TraitFilterContextProvider = ({ children, tokens, onFilterChange })
   const [variationNamesByTraitName, setVariationNamesByTraitName] = useState({});
   const [tokenCountByVariationName, setTokenCountByVariationName] = useState({});
 
-  /*
-    selectedFilters Data Structure:
-      {
-        [variationName]: false
-      }
-  */
-  const [selectedFilters, setSelectedFilters] = useState({});
-
-  const removeFilter = (keyName) => {
-    setSelectedFilters({
-      ...selectedFilters,
-      [keyName]: false
-    })
-  }
+  const filterKeyNames = useMemo(() => Object.keys(tokenCountByVariationName), [tokenCountByVariationName])
+  const [filters, addFilter, removeFilter] = useFilters(filterKeyNames);
 
   const getKeyName = ({ trait_type, value }) => `${trait_type}:${value}`
 
-  const filterTokens = (selectedFilters) => {
-    if (!selectedFilters) {
+  const filterTokens = (filters) => {
+    if (!filters) {
       return tokens;
     }
-    const checkedVariationNames = Object.entries(selectedFilters).filter(([name, isChecked]) => isChecked).flatMap(([name]) => name)
+    const checkedVariationNames = Object.entries(filters).filter(([name, isChecked]) => isChecked).flatMap(([name]) => name)
     if (checkedVariationNames.length === 0) {
       return tokens;
     }
@@ -97,22 +81,21 @@ export const TraitFilterContextProvider = ({ children, tokens, onFilterChange })
   useEffect(() => {
     setVariationNamesByTraitName(getVariationNamesByTraitName(tokens))
     setTokenCountByVariationName(getTokenCountByVariationName(tokens))
-    setSelectedFilters(getInitalFilters(Object.keys(tokenCountByVariationName)))
   }, [tokens])
 
   useEffect(() => {
     if (onFilterChange) {
-      onFilterChange(selectedFilters)
+      onFilterChange(filters)
     }
 
-    setFilteredTokens(filterTokens(selectedFilters))
-  }, [selectedFilters])
+    setFilteredTokens(filterTokens(filters))
+  }, [filters])
 
   let context = {
     variationNamesByTraitName,
     tokenCountByVariationName,
-    selectedFilters,
-    setSelectedFilters,
+    filters,
+    addFilter,
     removeFilter,
     tokens,
     filteredTokens

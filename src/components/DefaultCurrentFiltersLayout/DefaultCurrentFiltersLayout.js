@@ -27,8 +27,8 @@ const SelectedFilter = ({ name, onClick }) =>
 const DefaultCurrentFiltersLayout = ({ TraitFilterContextConsumer }) =>
   <ul style={styles.wrapper}>
     <TraitFilterContextConsumer>
-      {({ selectedFilters, removeFilter }) =>
-        Object.entries(selectedFilters)
+      {({ filters, removeFilter }) =>
+        Object.entries(filters)
           .filter(([name, isChecked]) => isChecked)
           .map(([name]) =>
             <SelectedFilter

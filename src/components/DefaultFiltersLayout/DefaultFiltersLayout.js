@@ -67,17 +67,18 @@ const TraitFilters = ({ variationNamesByTraitName, ...otherProps }) =>
 
 const DefaultFiltersLayout = ({ TraitFilterContextConsumer }) =>
   <TraitFilterContextConsumer>
-    {({ variationNamesByTraitName, tokenCountByVariationName, selectedFilters, setSelectedFilters }) =>
+    {({ variationNamesByTraitName, tokenCountByVariationName, filters, addFilter, removeFilter }) =>
       <TraitFilters
         variationNamesByTraitName={variationNamesByTraitName}
         getCount={(key) => tokenCountByVariationName[key]}
         onChange={({ target: { name, checked } }) => {
-          setSelectedFilters({
-            ...selectedFilters,
-            [name]: checked
-          });
+          if (checked) {
+            addFilter(name)
+          } else {
+            removeFilter(name)
+          }
         }}
-        isChecked={(key) => selectedFilters[key]} />
+        isChecked={(key) => filters[key]} />
     }
   </TraitFilterContextConsumer>
 
