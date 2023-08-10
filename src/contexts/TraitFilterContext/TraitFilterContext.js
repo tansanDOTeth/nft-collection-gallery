@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useMemo, useState } from 'react';
 
 import { CartesianProduct } from 'js-combinatorics';
 import { useFilters } from 'hooks/useFilters';
@@ -52,8 +52,12 @@ const getVariationNamesByTraitName = (tokens) => {
 
 export const TraitFilterContextProvider = ({ children, tokens, onFilterChange }) => {
   const [filteredTokens, setFilteredTokens] = useState([])
-  const [variationNamesByTraitName, setVariationNamesByTraitName] = useState({});
-  const [tokenCountByVariationName, setTokenCountByVariationName] = useState({});
+  const [variationNamesByTraitName, tokenCountByVariationName] = useMemo(() => {
+    return [
+      getVariationNamesByTraitName(tokens),
+      getTokenCountByVariationName(tokens),
+    ]
+  }, [tokens])
 
   const filterKeyNames = useMemo(() => Object.keys(tokenCountByVariationName), [tokenCountByVariationName])
   const [filters, addFilter, removeFilter] = useFilters(filterKeyNames);
@@ -77,11 +81,6 @@ export const TraitFilterContextProvider = ({ children, tokens, onFilterChange })
       return attributeCombinations.find(attributeCombination => isSuperSet(keyNames, attributeCombination))
     })
   }
-
-  useEffect(() => {
-    setVariationNamesByTraitName(getVariationNamesByTraitName(tokens))
-    setTokenCountByVariationName(getTokenCountByVariationName(tokens))
-  }, [tokens])
 
   useEffect(() => {
     if (onFilterChange) {
