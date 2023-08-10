@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useCallback, useContext, useMemo } from 'react';
+
+import TraitFilterContext from 'contexts/TraitFilterContext/TraitFilterContext';
 
 const TraitFilter = ({ traitName, variationNames, getCount, onChange, isChecked }) => {
   const getKeyName = (traitName, variationName) => `${traitName}:${variationName}`
@@ -54,32 +56,39 @@ const TraitFilter = ({ traitName, variationNames, getCount, onChange, isChecked 
   )
 }
 
-const TraitFilters = ({ variationNamesByTraitName, ...otherProps }) =>
-  Object.entries(variationNamesByTraitName)
-    .sort((a, b) => a[0].localeCompare(b[0]))
-    .map(([traitName, variationNames]) =>
-      <TraitFilter
-        key={traitName}
-        traitName={traitName}
-        variationNames={variationNames}
-        {...otherProps} />
-    )
+const TraitFilters = ({ variationNamesByTraitName, ...otherProps }) => {
+  const entries = useMemo(() =>
+    Object.entries(variationNamesByTraitName)
+      .sort((a, b) => a[0].localeCompare(b[0])),
+    [variationNamesByTraitName]
+  )
 
-const DefaultFiltersLayout = ({ TraitFilterContextConsumer }) =>
-  <TraitFilterContextConsumer>
-    {({ variationNamesByTraitName, tokenCountByVariationName, filters, addFilter, removeFilter }) =>
-      <TraitFilters
-        variationNamesByTraitName={variationNamesByTraitName}
-        getCount={(key) => tokenCountByVariationName[key]}
-        onChange={({ target: { name, checked } }) => {
-          if (checked) {
-            addFilter(name)
-          } else {
-            removeFilter(name)
-          }
-        }}
-        isChecked={(key) => filters[key]} />
+  return entries.map(([traitName, variationNames]) =>
+    <TraitFilter
+      key={traitName}
+      traitName={traitName}
+      variationNames={variationNames}
+      {...otherProps} />
+  )
+}
+
+const DefaultFiltersLayout = ({ TraitFilterContextConsumer }) => {
+  const { variationNamesByTraitName, tokenCountByVariationName, filters, addFilter, removeFilter } = useContext(TraitFilterContext);
+  const getCount = useCallback((key) => tokenCountByVariationName[key], [tokenCountByVariationName]);
+  const isChecked = useCallback((key) => filters[key], [filters]);
+  const onChange = useCallback(({ target: { name, checked } }) => {
+    if (checked) {
+      addFilter(name)
+    } else {
+      removeFilter(name)
     }
-  </TraitFilterContextConsumer>
+  }, [addFilter, removeFilter]);
+
+  return <TraitFilters
+    variationNamesByTraitName={variationNamesByTraitName}
+    getCount={getCount}
+    onChange={onChange}
+    isChecked={isChecked} />
+}
 
 export default DefaultFiltersLayout;
