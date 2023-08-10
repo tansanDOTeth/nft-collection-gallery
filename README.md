@@ -123,6 +123,14 @@ Here's how the gallery would look like with MUI.
 
 There is an example create-react-app that you can use in `example/` to help test the build files locally. You must link certain packages for it to work.
 
+## Build
+
+You have to run the commands to build the files locally for testing. To do so,
+
+```bash
+npm run build
+```
+
 ## Linking
 
 In order to develop locally against your local build using the `example/` directory, you will need to symlink certain `node_module/` packages.
