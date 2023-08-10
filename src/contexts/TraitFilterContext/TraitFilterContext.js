@@ -11,7 +11,11 @@ const uniqueItems = (items, uniqueKey) => {
   return [...new Map(items.map((item) => [getItemKey(item), item])).values()];
 }
 const isSuperSet = (source, target) => target.every(v => source.includes(v));
-const getInitalFilters = (filterNames) => filterNames.reduce((acc, name) => ({ ...acc, [name]: false }), {});
+const getInitalFilters = (filterNames) =>
+  filterNames.reduce((map, name) => {
+    map[name] = false
+    return map;
+  }, {})
 const groupByTraitName = (filterNames) => filterNames.reduce((acc, keyName) => {
   const split = keyName.split(':');
   const traitName = split[0];
