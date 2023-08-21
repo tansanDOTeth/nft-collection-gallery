@@ -79,7 +79,7 @@ export const TraitFilterContextProvider = ({ children, tokens, onFilterChange })
   }, [tokens])
 
   const filterKeyNames = useMemo(() => Object.keys(tokenCountByVariationName), [tokenCountByVariationName])
-  const [filters, addFilter, removeFilter] = useFilters(filterKeyNames);
+  const [filters, addFilter, removeFilter, clearFilters] = useFilters(filterKeyNames);
   const filteredTokens = useMemo(() => {
     if (onFilterChange) {
       onFilterChange(filters)
@@ -94,6 +94,7 @@ export const TraitFilterContextProvider = ({ children, tokens, onFilterChange })
     filters,
     addFilter,
     removeFilter,
+    clearFilters,
     tokens,
     filteredTokens
   };

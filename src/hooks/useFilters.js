@@ -17,6 +17,7 @@ export const useFilters = (keyNames = []) => {
 
   const removeFilter = useCallback((keyName) => setFilter(keyName, false), [setFilter])
   const addFIlter = useCallback((keyName) => setFilter(keyName, true), [setFilter])
+  const clearFilters = useCallback(() => setFilters(getInitalFilters(keyNames)), [keyNames])
 
   useEffect(() => {
     setFilters(getInitalFilters(keyNames))
@@ -26,5 +27,6 @@ export const useFilters = (keyNames = []) => {
     filters,
     addFIlter,
     removeFilter,
+    clearFilters
   ]
 }
