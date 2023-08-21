@@ -27,16 +27,21 @@ const SelectedFilter = ({ name, onClick }) =>
 const DefaultCurrentFiltersLayout = ({ TraitFilterContextConsumer }) =>
   <ul style={styles.wrapper}>
     <TraitFilterContextConsumer>
-      {({ filters, removeFilter }) =>
-        Object.entries(filters)
-          .filter(([name, isChecked]) => isChecked)
-          .map(([name]) =>
-            <SelectedFilter
-              key={name}
-              name={name}
-              onClick={removeFilter} />
-          )
-      }
+      {({ filters, removeFilter, clearFilters }) => {
+        const hasFilters = Object.values(filters).some(isChecked => isChecked);
+        if (!hasFilters) return <></>
+        return <>
+          <button onClick={clearFilters}>Clear Filters</button>
+          {Object.entries(filters)
+            .filter(([name, isChecked]) => isChecked)
+            .map(([name]) =>
+              <SelectedFilter
+                key={name}
+                name={name}
+                onClick={removeFilter} />
+            )}
+        </>
+      }}
     </TraitFilterContextConsumer>
   </ul>;
 
