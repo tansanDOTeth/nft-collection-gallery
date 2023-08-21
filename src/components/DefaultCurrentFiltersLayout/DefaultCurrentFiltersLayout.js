@@ -5,6 +5,7 @@ const styles = {
     display: 'flex',
     flexWrap: 'wrap',
     listStyle: 'none',
+    gap: '0.5rem',
     padding: '0.5rem',
     margin: 0,
   },
@@ -12,7 +13,6 @@ const styles = {
     border: '1px solid grey',
     borderRadius: 2,
     padding: '0.5rem',
-    marginRight: '0.5rem',
     cursor: 'pointer'
   }
 }
