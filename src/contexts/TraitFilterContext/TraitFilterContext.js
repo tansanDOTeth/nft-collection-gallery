@@ -71,12 +71,10 @@ const filterTokens = (filters, tokens) => {
 }
 
 export const TraitFilterContextProvider = ({ children, tokens, onFilterChange }) => {
-  const [variationNamesByTraitName, tokenCountByVariationName] = useMemo(() => {
-    return [
-      getVariationNamesByTraitName(tokens),
-      getTokenCountByVariationName(tokens),
-    ]
-  }, [tokens])
+  const [variationNamesByTraitName, tokenCountByVariationName] = useMemo(() => [
+    getVariationNamesByTraitName(tokens),
+    getTokenCountByVariationName(tokens),
+  ], [tokens])
 
   const filterKeyNames = useMemo(() => Object.keys(tokenCountByVariationName), [tokenCountByVariationName])
   const [filters, addFilter, removeFilter, clearFilters] = useFilters(filterKeyNames);
