@@ -72,7 +72,7 @@ const TraitFilters = ({ variationNamesByTraitName, ...otherProps }) => {
   )
 }
 
-const DefaultFiltersLayout = ({ TraitFilterContextConsumer }) => {
+const DefaultFiltersLayout = () => {
   const { variationNamesByTraitName, tokenCountByVariationName, filters, addFilter, removeFilter } = useContext(TraitFilterContext);
   const getCount = useCallback((key) => tokenCountByVariationName[key], [tokenCountByVariationName]);
   const isChecked = useCallback((key) => filters[key], [filters]);

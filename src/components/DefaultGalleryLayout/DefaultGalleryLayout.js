@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import TraitFilterContext from 'contexts/TraitFilterContext';
 
 const styles = {
   wrapper: {
@@ -35,23 +37,24 @@ const styles = {
   }
 }
 
-const DefaultGalleryLayout = ({ TraitFilterContextConsumer, FiltersLayout, TokensLayout, CurrentFiltersLayout }) =>
-  <div style={styles.wrapper}>
+const DefaultGalleryLayout = ({ FiltersLayout, TokensLayout, CurrentFiltersLayout }) => {
+  const { tokens, filteredTokens } = useContext(TraitFilterContext);
+
+  return <div style={styles.wrapper}>
     <div style={styles.content}>
       <div style={styles.leftColumn}>
         <FiltersLayout />
       </div>
       <div style={styles.rightColumn}>
         <div style={styles.supplyCount}>
-          <TraitFilterContextConsumer>
-            {({ tokens, filteredTokens }) => `${filteredTokens.length}/${tokens.length}`}
-          </TraitFilterContextConsumer>
+          {`${filteredTokens.length}/${tokens.length}`}
         </div>
         <CurrentFiltersLayout />
         <TokensLayout />
       </div>
     </div>
   </div>
+}
 
 
 export default DefaultGalleryLayout;

@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useContext, useMemo } from 'react';
+
+import TraitFilterContext from 'contexts/TraitFilterContext';
 
 const styles = {
   wrapper: {
@@ -24,25 +26,22 @@ const SelectedFilter = ({ name, onClick }) =>
     {name.split(':').join(' - ')}
   </li>
 
-const DefaultCurrentFiltersLayout = ({ TraitFilterContextConsumer }) =>
-  <ul style={styles.wrapper}>
-    <TraitFilterContextConsumer>
-      {({ filters, removeFilter, clearFilters }) => {
-        const hasFilters = Object.values(filters).some(isChecked => isChecked);
-        if (!hasFilters) return <></>
-        return <>
-          <button onClick={clearFilters}>Clear Filters</button>
-          {Object.entries(filters)
-            .filter(([name, isChecked]) => isChecked)
-            .map(([name]) =>
-              <SelectedFilter
-                key={name}
-                name={name}
-                onClick={removeFilter} />
-            )}
-        </>
-      }}
-    </TraitFilterContextConsumer>
+const DefaultCurrentFiltersLayout = () => {
+  const { filters, removeFilter, clearFilters } = useContext(TraitFilterContext);
+  const hasFilters = useMemo(() => Object.values(filters).some(isChecked => isChecked), [filters]);
+
+  if (!hasFilters) return <></>
+  return <ul style={styles.wrapper}>
+    <button onClick={clearFilters}>Clear Filters</button>
+    {Object.entries(filters)
+      .filter(([name, isChecked]) => isChecked)
+      .map(([name]) =>
+        <SelectedFilter
+          key={name}
+          name={name}
+          onClick={removeFilter} />
+      )}
   </ul>;
+}
 
 export default DefaultCurrentFiltersLayout;
