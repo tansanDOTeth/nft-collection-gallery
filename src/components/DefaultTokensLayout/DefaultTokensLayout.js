@@ -1,7 +1,8 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useContext, useState } from 'react';
 
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeGrid } from 'react-window';
+import TraitFilterContext from 'contexts/TraitFilterContext';
 
 const TokenImage = ({ width, token, onClick, showTokenName = false }) => {
   const styles = {
@@ -95,12 +96,13 @@ const BasicModal = ({ imageWidth, token, onClose }) => {
   )
 }
 
-const DefaultTokensLayout = ({ TraitFilterContextConsumer }) => {
+const DefaultTokensLayout = () => {
   const ROW_GUTTER = 20;
   const COLUMN_GUTTER = 20;
   const CARD_WIDTH = 250;
   const CARD_HEIGHT = 290;
 
+  const { filteredTokens } = useContext(TraitFilterContext)
   const [selectedToken, setSelectedToken] = useState({});
   const [open, setOpen] = useState(false);
   const showModal = () => setOpen(true);
@@ -114,45 +116,42 @@ const DefaultTokensLayout = ({ TraitFilterContextConsumer }) => {
   return (
     <Fragment>
       {open && <BasicModal imageWidth={CARD_WIDTH} token={selectedToken} onClose={hideModal} />}
-      <TraitFilterContextConsumer>
-        {({ filteredTokens }) =>
-          <AutoSizer>
-            {({ height, width }) => {
-              const columnCount = Math.floor(width / (CARD_WIDTH + COLUMN_GUTTER));
-              const rowCount = Math.ceil(filteredTokens.length / columnCount);
+      {<AutoSizer>
+        {({ height, width }) => {
+          const columnCount = Math.floor(width / (CARD_WIDTH + COLUMN_GUTTER));
+          const rowCount = Math.ceil(filteredTokens.length / columnCount);
 
-              return (
-                <FixedSizeGrid
-                  columnCount={columnCount}
-                  columnWidth={width / columnCount}
-                  height={height}
-                  rowCount={rowCount}
-                  rowHeight={CARD_HEIGHT + ROW_GUTTER}
-                  width={width}
-                >
-                  {({ columnIndex, rowIndex, style }) => {
-                    const token = filteredTokens[rowIndex * columnCount + columnIndex];
+          return (
+            <FixedSizeGrid
+              columnCount={columnCount}
+              columnWidth={width / columnCount}
+              height={height}
+              rowCount={rowCount}
+              rowHeight={CARD_HEIGHT + ROW_GUTTER}
+              width={width}
+            >
+              {({ columnIndex, rowIndex, style }) => {
+                const token = filteredTokens[rowIndex * columnCount + columnIndex];
 
-                    if (!token) {
-                      return null;
-                    }
+                if (!token) {
+                  return null;
+                }
 
-                    return (
-                      <div style={style}>
-                        <TokenImage
-                          key={token.name}
-                          width={CARD_WIDTH}
-                          token={token}
-                          onClick={() => onSelect(token)}
-                          showTokenName={true} />
-                      </div>
-                    );
-                  }}
-                </FixedSizeGrid>
-              );
-            }}
-          </AutoSizer>}
-      </TraitFilterContextConsumer>
+                return (
+                  <div style={style}>
+                    <TokenImage
+                      key={token.name}
+                      width={CARD_WIDTH}
+                      token={token}
+                      onClick={() => onSelect(token)}
+                      showTokenName={true} />
+                  </div>
+                );
+              }}
+            </FixedSizeGrid>
+          );
+        }}
+      </AutoSizer>}
     </Fragment>
   )
 }
