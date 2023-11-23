@@ -11,7 +11,7 @@ const config = {
     'react'
   ],
   output: {
-    format: 'umd',
+    format: "es",
     name: 'CollectionGallery',
     globals: {
       react: "React"
