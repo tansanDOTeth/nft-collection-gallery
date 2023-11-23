@@ -6,7 +6,7 @@ import postcss from "rollup-plugin-postcss";
 import { uglify } from "rollup-plugin-uglify";
 
 const config = {
-  input: "src/components/CollectionGallery/index.js",
+  input: "src/index.js",
   external: ["react"],
   output: {
     format: "es",

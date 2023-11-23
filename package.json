@@ -4,7 +4,7 @@
   "scripts": {
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "build": "rollup -c -o dist/CollectionGallery.min.js",
+    "build": "rollup -c -o dist/CollectionGallery.js",
     "link-nft-collection-gallery": "yarn link; cd example; yarn link nft-collection-gallery; cd ..",
     "link-react": "cd example/node_modules/react; yarn link; cd ../../../; yarn link react",
     "link-all": "yarn link-nft-collection-gallery; yarn link-react",
@@ -12,7 +12,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "release": "np --no-tests"
   },
-  "main": "dist/CollectionGallery.min.js",
+  "main": "dist/CollectionGallery.js",
   "files": [
     "dist"
   ],
