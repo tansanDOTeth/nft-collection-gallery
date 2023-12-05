@@ -70,7 +70,7 @@ const filterTokens = (filters, tokens) => {
   })
 }
 
-export const TraitFilterContextProvider = ({ children, tokens, onFilterChange }) => {
+export const TraitFilterContextProvider = ({ children, tokens = [], onFilterChange }) => {
   const [variationNamesByTraitName, tokenCountByVariationName] = useMemo(() => [
     getVariationNamesByTraitName(tokens),
     getTokenCountByVariationName(tokens),
@@ -103,9 +103,5 @@ export const TraitFilterContextProvider = ({ children, tokens, onFilterChange })
     </TraitFilterContext.Provider>
   );
 };
-
-TraitFilterContextProvider.defaultProps = {
-  tokens: [],
-}
 
 export const { Consumer: TraitFilterContextConsumer } = TraitFilterContext;
